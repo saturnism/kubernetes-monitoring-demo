@@ -6,8 +6,8 @@ metadata:
   name: nginx
 spec:
   ports:
-  - name: http
-    port: 80
+  - port: 80
+    protocol: TCP
     targetPort: 80
   selector:
     run: nginx
@@ -20,14 +20,14 @@ metadata:
     run: nginx
   name: nginx
 spec:
-  replicas: 5
+  replicas: 50
   selector:
     matchLabels:
       run: nginx
   strategy:
     rollingUpdate:
-      maxSurge: 50%
-      maxUnavailable: 50%
+      maxSurge: 1
+      maxUnavailable: 1
     type: RollingUpdate
   template:
     metadata:
@@ -37,6 +37,13 @@ spec:
       containers:
       - image: nginx:1.13.12
         name: nginx
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500m
+          limits:
+            cpu: 500m
+            memory: 500m
         livenessProbe:
           httpGet:
             path: /
