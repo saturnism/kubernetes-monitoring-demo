@@ -11,8 +11,8 @@ spec:
       run: nginx
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+      maxSurge: 100%
+      maxUnavailable: 100%
     type: RollingUpdate
   template:
     metadata:
@@ -24,11 +24,11 @@ spec:
         name: nginx
         resources:
           requests:
-            cpu: 500m
-            memory: 500m
+            cpu: 1000m
+            memory: 50M
           limits:
-            cpu: 500m
-            memory: 500m
+            cpu: 1000m
+            memory: 50M
         livenessProbe:
           httpGet:
             path: /
